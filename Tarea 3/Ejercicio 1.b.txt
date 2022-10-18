@@ -1,0 +1,18 @@
+DECLARE
+    id_Parametro = 12;
+    
+    CURSOR id_departamento_cursor IS 
+    SELECT 
+    count(manager_id) as cantidad,
+    depto.department_name as departamento
+    FROM DEPARTMENTS depto
+    INNER JOIN EMPLOYEES empl ON (depto.manager_id = empl.employee_id)
+    WHERE department_id = id_Parametro;
+
+BEGIN
+    
+    FOR fila in id_departamento_cursor LOOP
+        dbms_output.put_line
+        ('El departamento '||fila.departamento||' cuenta con '||fila.cantidad||' empleados');
+    END LOOP;
+END;

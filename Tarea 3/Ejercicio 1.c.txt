@@ -1,0 +1,21 @@
+DECLARE
+    CURSOR empleados_cursor IS SELECT * FROM EMPLOYEES; 
+    salarioTemporal NUMBER;
+BEGIN
+    FOR fila in empleados_cursor LOOP
+        IF fila.salary > 8000 THEN
+            --Incrementa un 2%
+            salarioTemporal:= fila.salary*1.02;
+            UPDATE EMPLOYEES
+            SET salary = salarioTemporal
+            WHERE employee_id = fila.employee_id;
+        END IF;
+        IF fila.salary <8000 THEN
+            --Ingrementa un 3%
+            salarioTemporal := fila.salary*1.03;
+            UPDATE EMPLOYEES
+            SET salary = salarioTemporal
+            WHERE employee_id = fila.employee_id;
+        END IF;
+    END LOOP;
+END;

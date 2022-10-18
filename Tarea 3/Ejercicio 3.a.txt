@@ -1,0 +1,32 @@
+CREATE OR REPLACE PROCEDURE CALCULADORA (num1 IN NUMBER, num2 IN NUMBER, signo_operacion IN VARCHAR2) 
+IS
+    resultado NUMBER(20) := 0; 
+BEGIN 
+ 
+ CASE signo_operacion 
+  WHEN '+' THEN 
+      resultado := num1 + num2; 
+	 dbms_output.put_line(num1||' + '||num2||' = '||resultado); 
+  WHEN '-' THEN 
+     resultado := num1 - num2; 
+	 dbms_output.put_line(num1||' - '||num2||' = '||resultado); 
+  WHEN '*' THEN 
+     resultado := num1 * num2; 
+	 dbms_output.put_line(num1||' * '||num2||' = '||resultado); 
+  WHEN '/' THEN 
+     IF num1=0 AND num2=0 THEN
+        dbms_output.put_line('En una division ambos números NO pueden ser cero, Intente de nuevo');
+     ELSIF num2=0 THEN
+        dbms_output.put_line('En una division el divisor NO pueden ser cero, Intente de nuevo');
+     ELSE
+        resultado := num1 / num2; 
+	    dbms_output.put_line(num1||' / '||num2||' = '||resultado);
+     END IF;
+  ELSE 
+     dbms_output.put_line('Signo de operacion inválido.'); 
+ END CASE; 
+END CALCULADORA; 
+
+BEGIN
+CALCULADORA(2,3,'+');
+END;

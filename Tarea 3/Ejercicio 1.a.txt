@@ -1,0 +1,25 @@
+DECLARE
+    cursor empleados_cursor IS SELECT * FROM EMPLOYEES;
+    APPLICATION_ERROR EXCEPTION;
+BEGIN
+    
+    FOR fila in empleados_cursor LOOP
+    
+        IF fila.first_name='Peter' AND fila.last_name = 'Tucker' THEN
+            RAISE APPLICATION_ERROR;
+        ELSE
+            dbms_output.put_line(fila.first_name);
+            dbms_output.put_line(fila.salary);
+        END IF;
+    END LOOP;
+    
+    
+    EXCEPTION
+    when APPLICATION_ERROR THEN
+        dbms_output.put_line('No esta permitido conocer el salario del jefe');
+    WHEN OTHERS THEN
+        dbms_output.put_line('Error Inesperado');
+    END EXCEPTION;
+END;
+
+

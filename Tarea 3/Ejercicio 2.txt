@@ -1,0 +1,24 @@
+CREATE OR REPLACE FUNCTION 
+CREAR_REGION(nombreRegion IN regions.region_name%TYPE) 
+RETURN codigoRegion IS
+    codigoRegion NUMBER;
+    cantidad_Regiones NUMBER;
+BEGIN
+    SELECT count(*) INTO cantidad_Regiones FROM regions; 
+    codigoRegion := cantidad_Regiones+1;
+    INSERT INTO regions VALUES( codigoRegion,nombreRegion); 
+    
+    EXCEPTION
+    WHEN OTHER THEN
+        dbms_output.put_line('Error Inesperado');
+    END EXCEPTION;
+END;
+/
+
+DECLARE
+retorno NUMBER;
+BEGIN
+    
+    SELECT CREAR_REGION('Atlantica') INTO retorno FROM dual;
+    dbms_output.put_line('El codigo de la nueva region es: '||retorno);
+END;
