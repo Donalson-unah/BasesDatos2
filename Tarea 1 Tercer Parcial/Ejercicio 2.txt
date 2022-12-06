@@ -1,0 +1,8 @@
+SELECT 
+date,
+state,
+SUM(tests_total) OVER (partition by state) AS tests_total,
+cases_positive_total,
+SUM (cases_positive_total) over (partition by state) as suma_total
+FROM `bigquery-public-data.covid19_covidtracking.summary`;
+

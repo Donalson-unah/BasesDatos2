@@ -1,0 +1,10 @@
+WITH VIEW_SOURCE AS (SELECT channelGrouping,date, SUM(totals.pageviews) pageviews
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_20170801`
+GROUP BY  channelGrouping, date)
+
+SELECT 
+  channelGrouping AS Channel, pageviews AS Page_Views, 
+  (pageviews / SUM(pageviews) OVER()) AS Porcentaje,
+  AVG(pageviews) OVER (PARTITION BY date) AS Promedio
+FROM VIEW_SOURCE
+GROUP BY channelGrouping,pageviews,date ORDER BY Porcentaje DESC;

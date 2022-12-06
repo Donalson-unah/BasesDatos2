@@ -1,0 +1,2 @@
+SELECT region,Country,Total_Revenue, dense_rank() over (partition by region order by Total_Revenue desc) rank
+   FROM `100salesrecords.100SalesRecords.100 Sales Records` LIMIT 1000;
